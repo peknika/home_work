@@ -1,30 +1,10 @@
 package com.example.tests;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ContactCreationTest {
-  private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
-
-  @BeforeClass
-  public void setUp() throws Exception {
-    driver = new FirefoxDriver();
-    baseUrl = "http://localhost/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  }
+public class ContactCreationTest extends TestBase {
 
   @Test
   public void testEmtyContactCreation() throws Exception {
@@ -89,9 +69,6 @@ private void goToContactPage() {
 	driver.findElement(By.linkText("add new")).click();
 }
 
-private void openMainPage() {
-	driver.get(baseUrl + "/addressbookv4.1.4/");
-}
 
 private void setKeyInElement(String elementName, String inputValue)
 {
@@ -113,46 +90,4 @@ private void selectDropdownValue (String elementName, String inputValue)
 	new Select(dropdownElement).selectByVisibleText(inputValue);
 }
 
-  @AfterClass
-  public void tearDown() throws Exception {
-    driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
-  }
 }
