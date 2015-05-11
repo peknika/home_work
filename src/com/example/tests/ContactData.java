@@ -51,4 +51,5 @@ public class ContactData {
 		this.address2 = address2;
 		this.homeNumber2 = homeNumber2;
 	}
+
 }
