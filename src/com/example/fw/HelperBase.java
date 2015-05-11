@@ -19,7 +19,7 @@ public abstract class HelperBase {
 
 	
 	 void typeKeyInElement(By locator, String inputValue) {
-		 if (!inputValue.isEmpty()){
+		 if (inputValue != null && !inputValue.isEmpty()){
 		WebElement webElement = driver.findElement(locator);
 		
 		webElement.clear();
@@ -30,7 +30,7 @@ public abstract class HelperBase {
 		 
 
 	public void selectDropdownValue(By locator, String inputValue) {
-		if ( !inputValue.isEmpty()){
+		if ( inputValue != null && !inputValue.isEmpty()){
 
 		WebElement dropdownElement = driver.findElement(locator);
 		new Select(dropdownElement).selectByVisibleText(inputValue);
