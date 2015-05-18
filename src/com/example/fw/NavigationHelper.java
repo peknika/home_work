@@ -8,7 +8,7 @@ public class NavigationHelper extends HelperBase {
 		super(manager);
 	}
 
-	public void goToContactPage() {
+	public void goToNewContactPage() {
 		click(By.linkText("add new"));
 	}
 
@@ -24,5 +24,7 @@ public class NavigationHelper extends HelperBase {
 	    driver.get(manager.baseUrl + "/addressbookv4.1.4/");
 	}
 
-
+	public void goToHomePageWithMenueButton(){
+		click(By.linkText("home"));	
+	}
 }
