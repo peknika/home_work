@@ -1,36 +1,30 @@
 package com.example.tests;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.Collections;
-import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.testng.annotations.Test;
+
+import com.example.utils.SortedListOf;
 
 public class ContactCreationTest extends TestBase {
 
 	@Test(dataProvider = "randomValidContactGenerator")
 	public void testValidContactCreation(ContactData contact1) throws Exception {
-		appManager.getNavigationHelper().openMainPage();
-
 		//Save old list of contacts
-		List<ContactData> oldList = appManager.getContactHelper().getContacts();
+		SortedListOf<ContactData> oldList = appManager.getContactHelper().getContacts();
 
 		
 		//Actions
-		appManager.getNavigationHelper().goToNewContactPage();	
-		appManager.getContactHelper().fillContactForm(contact1);
-		appManager.getContactHelper().submitContactCreation();
-		appManager.getNavigationHelper().returnToHomePage();
+		appManager.getContactHelper().createContact(contact1);
+
 
 		//Save new list of contacts
-		List<ContactData> newList = appManager.getContactHelper().getContacts();
+		SortedListOf<ContactData> newList = appManager.getContactHelper().getContacts();
 
 		//Compare old and new lists of contacts
 		oldList.add(contact1);
-		Collections.sort(oldList);
-		Collections.sort(newList);
-		assertEquals(newList, oldList);
+		assertThat(newList, equalTo(oldList));
 	}
 
 }
