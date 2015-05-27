@@ -15,9 +15,10 @@ public class ContactRemovalTest extends TestBase {
 	public void deleteSomeContact(){
 		//Save old list of contacts
 		SortedListOf<ContactData> oldList = appManager.getContactHelper().getContacts();
-		
+		if (oldList.size() > 0)
+		{
 		Random rnd = new Random();
-		int index = rnd. nextInt(oldList.size()-1);
+		int index = rnd.nextInt(oldList.size()-1);
 				
 		//Actions
 		appManager.getContactHelper().deleteContact(index);
@@ -28,5 +29,6 @@ public class ContactRemovalTest extends TestBase {
 				
 		//Compare old and new lists of contacts
 		assertThat(newList, equalTo(oldList.without(index)));
+		}
 }
 }

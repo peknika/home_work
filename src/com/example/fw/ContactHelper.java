@@ -31,8 +31,8 @@ public class ContactHelper extends HelperBase {
 		List<WebElement> rows = getContactRows();
 		for (WebElement row : rows) {
 			ContactData contact = new ContactData()
-			.withFirstName(row.findElement(By.xpath(".//td[2]")).getText())
-			.withLastName(row.findElement(By.xpath(".//td[3]")).getText());
+			.withFirstName(row.findElement(By.xpath(".//td[3]")).getText())
+			.withLastName(row.findElement(By.xpath(".//td[2]")).getText());
 			cachedContacts.add(contact);
 		}
 	}
