@@ -1,0 +1,1 @@
+java -cp bin;c:\Users\nika\tests\home_work\xstream-1.4.3.jar;c:\Users\nika\Downloads\xmlpull-1.1.3.1.jar;c:\Users\nika\Downloads\xpp3-1.1.4-min.jar;c:\Users\nika\Downloads\selenium-server-standalone-2.45.0.jar -DconfigFile=firefox.properties org.testng.TestNG testng-customsuite.xml

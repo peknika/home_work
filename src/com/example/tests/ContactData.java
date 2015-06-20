@@ -67,6 +67,7 @@ public class ContactData implements Comparable<ContactData> {
 	public String toString() {
 		return "ContactData [firstName=" + firstName + "]";
 	}
+	
 
 	@Override
 	public int compareTo(ContactData other) {

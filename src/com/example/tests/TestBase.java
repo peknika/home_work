@@ -1,8 +1,14 @@
 package com.example.tests;
 
+import static com.example.tests.GroupDataGeneratior.generateRandomGroups;
+import static com.example.tests.ContactDataGenerator.generateRandomContacts;
+
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 import org.testng.annotations.AfterTest;
@@ -17,7 +23,9 @@ public class TestBase {
 
 	@BeforeTest
 	public void setUp() throws Exception {
-		appManager = new ApplicationManager();
+		Properties properties = new Properties();
+		properties.load(new FileReader(new File("application.properties")));
+		appManager = new ApplicationManager(properties);
 	}
 
 	@AfterTest
@@ -27,74 +35,34 @@ public class TestBase {
 
 	@DataProvider
 	public Iterator<Object[]> randomValidGroupGenerator(){
-		List<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i < 5; i++){
-			GroupData group = new GroupData()
-			.withName (generateRandomString())
-			.withHeader(generateRandomString())
-			.withFooter(generateRandomString());
-
-			list.add(new Object[]{group});
-		}
-		return list.iterator();
+		return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
 
 	}
 
 
-	public String generateRandomString() {
-		Random rnd = new Random();
-		if (rnd.nextInt(3) == 0){
-			return "";
-		} else{
-			return "test" + rnd.nextInt();
+	public static List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
+		List<Object[]> list = new ArrayList<Object[]>();
+		for (GroupData group : groups) {
+			list.add(new Object[]{group});
 		}
+		return list;
 	}
 
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() {
-		List<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i <3; i++) {
-			ContactData contact = new ContactData()
-			.withFirstName (generateRandomStringForContact())
-			.withLastName (generateRandomStringForContact())
-			.withAddress (generateRandomStringForContact())
-			.withHomeNumber (generateRandomStringForContact())
-			.withMobileNumber (generateRandomStringForContact())
-			.withWorkNumber (generateRandomStringForContact())
-			.withEmail1 (generateRandomStringForContact())
-			.withEmail2 (generateRandomStringForContact())
-			.withBDay (generateRandomDayIndexForContact())
-			.withBMonth (generateRandomMonthIndexForContact())
-			.withBYear (generateRandomYearStringForContact())
-			.withGroupName (generateRandomGoupIndexForContact())
-			.withAddress2 (generateRandomStringForContact())
-			.withHomeNumber2 (generateRandomStringForContact());
-	
-			list.add(new Object[] {contact});
-		}
-		return list.iterator();
+		return wrapContactsForDataProvider(generateRandomContacts(5)).iterator();
 	}
 	
+	public static List<Object[]> wrapContactsForDataProvider(List<ContactData> contacts) {
+		List<Object[]> list = new ArrayList<Object[]>();
+		for (ContactData contact : contacts) {
+			list.add(new Object[]{contact});
+		}
+		return list;
+	}
+
 	public int generateRandomGoupIndexForContact() {
 		return 0;
-	}
-
-	private String generateRandomYearStringForContact() {
-		Random rnd = new Random();
-		return String.valueOf(rnd.nextInt(200) +1900);
-	}
-
-
-	private int generateRandomMonthIndexForContact() {
-		Random rnd = new Random();
-
-		return rnd.nextInt(11+1);
-	}
-
-	private int generateRandomDayIndexForContact() {
-		Random rnd = new Random();
-
-		return rnd.nextInt(30);
 	}
 
 	public String generateRandomStringForContact(){
